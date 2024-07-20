@@ -14,7 +14,7 @@ The action server in this package uses the `TrajExecutor.action` action interfac
 	- `int32 result_code`
 	- `string result_comment`
 
-  ## Dependencies
+## Dependencies
 This package depends on the following ROS 2 packages:
 - `rclcpp`
 - `rclcpp_action`

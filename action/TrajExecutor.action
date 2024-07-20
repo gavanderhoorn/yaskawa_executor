@@ -1,0 +1,58 @@
+## REQUEST
+# The desired joint trajectory
+trajectory_msgs/JointTrajectory joint_trajectory 
+
+---
+## RESULT
+# A code indicating the result of the trajectory execution.
+int32 result_code
+# success
+int32 SUCCESS = 1
+# not set
+int32 NOT_SET = -99999
+# bad call
+int32 EMPTY_TRAJ_MSG = -1
+int32 EMPTY_JOINTS_IN_TRAJ_MSG = -2
+int32 JOINT_STATES_NOT_AVAILABLE = -3
+int32 JOINT_NAMES_DONT_MATCH = -4
+int32 TOO_FAR_FROM_FIRST_POINT = -5
+int32 LAST_VELOCITIES_NOT_ZERO = -6
+# unexpected new goal or cancel request, stop all
+int32 ABORT_DUE_TO_NEW_GOAL = -10
+int32 IS_CANCELLED = -11
+# qtp failure
+int32 CANT_CONNECT_TO_QTP = -201
+int32 QTP_MAX_RETRIES_REACHED = -202
+int32 QTP_FAILED = -203
+int32 QTP_UNRESPONSIVE = -204
+
+# Human readable output
+string result_comment
+
+---
+## FEEDBACK
+# Boolean to indicate if the robot is supposed to be moving
+bool moving
+int32 current_point #current point SENT to QTP
+int32 total_points
+
+############################ result_code cases ############################
+
+## -99999 : response not set, unexpected output
+
+##  1     : Success, trajectory executed
+
+## -1     : Joint_trajectory is empty
+## -2     : Points in joint_trajectory do not contain joint positions or velocities
+## -3     : Can't access the /joint_states topic
+## -4     : Joint_trajectory and /joint_states don't have matching joint names
+## -5     : Current robot configuration is too far from first point on trajectory
+## -6     : Last point velocities must be set to zero
+
+## -10    : Aborting because a new goal has been received!
+## -11    : This goal has been cancelled!
+
+## -201   : Timed out while waiting on the QTP
+## -202   : Reached the max retries before finishing current point
+## -203   : QTP got an error shown in result_code
+## -204   : QTP became unresponsive and request timed out
